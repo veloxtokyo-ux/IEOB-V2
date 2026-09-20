@@ -1,0 +1,21 @@
+1. Extract this ZIP.
+2. Open the extracted folder.
+3. Upload ONLY these files to the ROOT of GitHub:
+   index.html
+   404.html
+   vercel.json
+   README.md
+4. Commit to the branch you want to test.
+5. Wait for Vercel/Cloudflare deployment to finish.
+6. Open the NEW deployment URL.
+7. You will see 3 cards:
+   STUDENT / CONTRIBUTOR / ADMIN
+8. Click any card. No password is needed in this demo.
+
+IMPORTANT:
+Do not upload the folder itself inside another folder.
+Correct:
+repo/index.html
+
+Wrong:
+repo/IEOB_COMPLETE_GITHUB_VERCEL_V2/index.html
