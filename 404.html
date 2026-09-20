@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07111f">
+<meta name="description" content="IEOB — International Ekayana Olympiad Battle">
+<title>IEOB — International Ekayana Olympiad Battle</title>
+<style>
+:root{--bg:#040914;--panel:#091423;--panel2:#0d1b2d;--line:#213852;--cyan:#18d9ff;--gold:#ffd34d;--green:#39e58c;--red:#ff607a;--purple:#a777ff;--text:#eff7ff;--muted:#8ea5bd}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 70% 0,#123253 0,#07111f 35%,#030811 100%);color:var(--text);font:14px Inter,Segoe UI,Arial,sans-serif;min-height:100vh}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.top{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 22px;border-bottom:1px solid var(--line);background:#050b14ee;position:sticky;top:0;z-index:20;backdrop-filter:blur(12px)}
+.logo{font-weight:1000;letter-spacing:2px;color:var(--cyan);font-size:20px}.logo small{display:block;color:var(--gold);font-size:8px;letter-spacing:2px;margin-top:2px}
+.layout{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 64px)}aside{border-right:1px solid var(--line);padding:14px 10px;background:#050b14e8}aside small{display:block;color:#60758d;text-transform:uppercase;letter-spacing:1px;margin:15px 8px 6px}aside button{width:100%;text-align:left;border:1px solid transparent;background:transparent;color:#c7d7e8;padding:10px 11px;border-radius:9px;margin:2px 0}aside button:hover,aside button.on{background:#10243b;border-color:#294864;color:#fff}
+main{width:100%;max-width:1450px;margin:auto;padding:22px}.hero,.card{background:linear-gradient(145deg,#0b1727,#07101b);border:1px solid var(--line);border-radius:16px;box-shadow:0 14px 42px #0005}.hero{padding:26px;margin-bottom:16px}.hero h1{font-size:40px;margin:7px 0}.hero p,.muted{color:var(--muted);line-height:1.65}.eyebrow{font-size:10px;color:var(--gold);font-weight:900;letter-spacing:3px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{padding:17px}.stat{font-size:28px;font-weight:900}.cyan{color:var(--cyan)}.gold{color:var(--gold)}.green{color:var(--green)}.purple{color:var(--purple)}
+.btn{padding:9px 13px;border-radius:9px;border:1px solid #2c4764;background:#10213a;color:#fff;font-weight:800}.btn.primary{background:linear-gradient(135deg,#09c9ef,#176dff);border:0}.btn.gold{background:linear-gradient(135deg,#ffd34d,#ff9e3d);color:#07111f;border:0}.btn.danger{background:#361521;border-color:#6f2d40}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.badge{display:inline-block;border:1px solid var(--line);border-radius:99px;padding:4px 8px;font-size:10px;color:#bdd0e3}.progress{height:8px;background:#18283d;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),#805cff)}
+.q{font-size:20px;font-weight:800;line-height:1.5}.option{display:block;width:100%;text-align:left;padding:12px;margin:7px 0;border:1px solid #29415e;border-radius:10px;background:#0b1828;color:white}.option:hover{border-color:var(--cyan);background:#10253d}
+.field{display:grid;gap:5px;margin:9px 0}.field input,.field textarea,.field select{background:#07111f;border:1px solid #29415e;color:white;padding:10px;border-radius:8px;width:100%}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid #1b2c42;text-align:left}
+.login{min-height:100vh;display:grid;place-items:center;padding:20px}.loginbox{max-width:920px;width:100%;text-align:center}.roles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.role{text-align:left;padding:22px;margin-top:18px;border:1px solid var(--line);border-radius:16px;background:#0a1422}.role:hover{border-color:var(--cyan)}.hidden{display:none!important}.ai{border-color:#5c4a99;background:#13142a}.toast{position:fixed;right:18px;bottom:18px;background:#10243b;border:1px solid #31516f;padding:12px 15px;border-radius:10px;z-index:99}.footer{text-align:center;color:#5f748d;padding:30px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}aside{display:flex;overflow:auto;gap:4px;position:sticky;top:64px;z-index:15;border-right:0;border-bottom:1px solid var(--line)}aside small{display:none}aside button{min-width:max-content}.grid,.grid4,.roles{grid-template-columns:1fr 1fr}.hero h1{font-size:29px}}
+@media(max-width:520px){main{padding:12px}.grid,.grid4,.roles{grid-template-columns:1fr}.top{padding:0 12px}}
+</style>
+</head>
+<body><div id="app"></div>
+<script>
+const root=document.getElementById("app");
+const curriculum={
+"Matematika":[["Bilangan & Operasi","Bilangan, pecahan, rasio, persen"],["Aljabar","Variabel dan bentuk aljabar"],["SPLDV","Substitusi, eliminasi, grafik"],["Geometri","Sudut, bangun datar, lingkaran"],["Statistika","Mean, median, modus, peluang"],["Olimpiade","Pola, logika, kombinatorika"]],
+"IPA":[["Fisika Dasar","Gerak, gaya, energi"],["Materi","Zat dan perubahan"],["Biologi","Sel, organ, ekosistem"],["Bumi & Antariksa","Cuaca dan tata surya"]],
+"Bahasa Indonesia":[["Teks Informasi","Ide pokok, simpulan, struktur"],["Argumentasi","Fakta, opini, alasan"],["Literasi","Inferensi dan evaluasi"]],
+"Bahasa Inggris":[["Vocabulary","Everyday & academic vocabulary"],["Grammar","Tenses dan sentence structure"],["Reading","Main idea dan inference"]]
+};
+const questions=[
+["Matematika","SPLDV","Jika x+y=12 dan x-y=4, nilai x adalah…",["4","6","8","10"],2,"Jumlahkan kedua persamaan: 2x=16, jadi x=8."],
+["Matematika","Aljabar","Jika 3x+5=20, nilai x adalah…",["3","5","7","10"],1,"Kurangi 5 lalu bagi 3: x=5."],
+["Matematika","Statistika","Data 4,6,6,8,11 memiliki median…",["4","6","7","8"],1,"Nilai tengah data terurut adalah 6."],
+["IPA","Fisika","Satuan SI untuk gaya adalah…",["Joule","Newton","Watt","Pascal"],1,"Gaya diukur dalam Newton."],
+["Bahasa Indonesia","Literasi","Gagasan utama paragraf adalah…",["Kalimat terpanjang","Ide pokok","Kata sulit","Contoh"],1,"Gagasan utama adalah ide pokok pembahasan."],
+["Bahasa Inggris","Grammar","Choose the correct sentence.",["She go to school.","She goes to school.","She going school.","She gone school."],1,"Subject she pada simple present menggunakan goes."]
+];
+const quests=[
+["First Step","Selesaikan diagnostic","100 XP"],["Math Explorer","Pelajari 3 modul Matematika","150 XP"],
+["Problem Solver","Selesaikan 10 soal","250 XP"],["Consistency","Belajar 5 hari","300 XP"],["Olympiad Gate","Capai 1.500 XP","500 XP"]
+];
+let state=JSON.parse(localStorage.getItem("ieob_state")||"null")||{role:null,name:"Student",level:1,xp:0,gold:100,solved:0,correct:0,subject:"Matematika",qi:0,done:[]};
+const save=()=>localStorage.setItem("ieob_state",JSON.stringify(state));
+function toast(t){const x=document.createElement("div");x.className="toast";x.textContent=t;document.body.append(x);setTimeout(()=>x.remove(),2200)}
+function login(){
+root.innerHTML=`<div class="login"><div class="loginbox"><div class="eyebrow">INTERNATIONAL EKAYANA OLYMPIAD BATTLE</div>
+<h1 style="font-size:50px;margin:8px">ENTER THE IEOB WORLD</h1><p class="muted">Learn • Quest • Evolve • Battle • Earn</p>
+<div class="roles">
+<div class="role" onclick="setRole('student')"><div style="font-size:32px">🎓</div><h2>Student</h2><p class="muted">Belajar, quest, naik level, battle.</p><button class="btn primary">ENTER AS STUDENT</button></div>
+<div class="role" onclick="setRole('contributor')"><div style="font-size:32px">🛡️</div><h2>Contributor</h2><p class="muted">Membuat draft soal untuk review.</p><button class="btn">ENTER AS CONTRIBUTOR</button></div>
+<div class="role" onclick="setRole('admin')"><div style="font-size:32px">👑</div><h2>Admin</h2><p class="muted">Kelola konten dan sistem.</p><button class="btn gold">ENTER AS ADMIN</button></div></div>
+<div class="badge" style="margin-top:18px">DEMO LOGIN • Klik salah satu role di atas — tidak perlu password</div><p class="footer">IEOB Free Release • Static • Vercel / GitHub compatible</p></div></div>`;
+}
+function setRole(r){state.role=r;state.name=r==="student"?"Student":r==="contributor"?"Contributor":"Administrator";save();render()}
+function shell(){
+root.innerHTML=`<header class="top"><div class="logo">IEOB<small>INTERNATIONAL EKAYANA OLYMPIAD BATTLE</small></div><div><span class="badge">${state.role.toUpperCase()}</span> <button class="btn" onclick="logout()">Keluar</button></div></header>
+<div class="layout"><aside>
+<small>Command</small>
+<button data-go="dash" onclick="nav('dash')">⌂ Command Center</button><button data-go="learn" onclick="nav('learn')">📚 Learning Universe</button>
+<button data-go="quest" onclick="nav('quest')">🎯 Quest & Learning</button><button data-go="battle" onclick="nav('battle')">⚔️ Battle Arena</button>
+<button data-go="olym" onclick="nav('olym')">🏆 Olympiad</button><button data-go="ach" onclick="nav('ach')">🏅 Achievements</button><button data-go="lead" onclick="nav('lead')">👑 Leaderboard</button>
+${state.role!=="student"?`<small>Management</small><button data-go="content" onclick="nav('content')">📝 Content Studio</button><button data-go="analytics" onclick="nav('analytics')">📊 Analytics</button><button data-go="system" onclick="nav('system')">⚙️ System</button>`:""}
+</aside><main>
+<section data-p="dash">${dash()}</section><section data-p="learn" class="hidden">${learn()}</section><section data-p="quest" class="hidden">${quest()}</section>
+<section data-p="battle" class="hidden">${battle()}</section><section data-p="olym" class="hidden">${olym()}</section><section data-p="ach" class="hidden">${ach()}</section><section data-p="lead" class="hidden">${lead()}</section>
+${state.role!=="student"?`<section data-p="content" class="hidden">${content()}</section><section data-p="analytics" class="hidden">${analytics()}</section><section data-p="system" class="hidden">${system()}</section>`:""}
+</main></div>`;
+nav("dash");
+}
+function dash(){const pct=(state.xp%500)/5;return `<div class="hero"><div class="eyebrow">IEOB • ${state.role}</div><h1>Welcome back, ${state.name} ⚡</h1>
+<p>Belajar dengan alur <b>pahami → latihan → feedback → ulangi → naik level</b>. Versi ini langsung dapat diuji tanpa server.</p>
+<div class="toolbar"><button class="btn primary" onclick="nav('learn')">Mulai Belajar</button><button class="btn gold" onclick="nav('battle')">Mulai Battle</button></div></div>
+<div class="grid4"><div class="card"><div class="muted">LEVEL</div><div class="stat cyan">${state.level}</div></div><div class="card"><div class="muted">XP</div><div class="stat gold">${state.xp}</div></div>
+<div class="card"><div class="muted">GOLD</div><div class="stat">${state.gold}</div></div><div class="card"><div class="muted">AKURASI</div><div class="stat green">${state.solved?Math.round(state.correct/state.solved*100):0}%</div></div></div>
+<div class="grid" style="margin-top:14px"><div class="card"><h3>Character Evolution</h3><div class="progress"><i style="width:${pct}%"></i></div><p>${state.xp%500}/500 XP</p></div>
+<div class="card ai"><h3>🤖 AI Study Mentor</h3><p class="muted">Butuh penjelasan lebih sederhana?</p><button class="btn primary" onclick="ai()">Tanya AI</button></div>
+<div class="card"><h3>🎯 Focus</h3><p class="muted">Target hari ini: 10 soal dan 1 modul.</p></div></div>`}
+function learn(){return `<div class="hero"><div class="eyebrow">LEARNING UNIVERSE</div><h1>${state.subject}</h1><p>Materi bertahap dari konsep sederhana menuju tantangan olimpiade.</p>
+<div class="toolbar">${Object.keys(curriculum).map(x=>`<button class="btn ${x===state.subject?"primary":""}" onclick="state.subject='${x}';save();render();nav('learn')">${x}</button>`).join("")}</div></div>
+<div class="grid">${curriculum[state.subject].map((m,i)=>`<div class="card"><span class="badge">MODULE ${i+1}</span><h3>${m[0]}</h3><p>${m[1]}</p><p class="muted">Konsep → contoh → latihan → tantangan.</p><button class="btn primary" onclick="toast('Modul ${m[0]} dimulai');nav('battle')">Pelajari →</button></div>`).join("")}</div>`}
+function quest(){return `<div class="hero"><div class="eyebrow">QUEST SYSTEM</div><h1>Quest & Learning</h1><p>Selesaikan misi untuk mendapatkan XP dan Gold.</p></div><div class="grid">${quests.map((q,i)=>`<div class="card"><span class="badge">Q0${i+1}</span><h3>${q[0]}</h3><p>${q[1]}</p><p class="gold"><b>${q[2]}</b></p><button class="btn ${state.done.includes(i)?"":"primary"}" onclick="cq(${i})">${state.done.includes(i)?"✓ Completed":"Claim / Start"}</button></div>`).join("")}</div>`}
+function battle(){const q=questions[state.qi%questions.length];return `<div class="hero"><div class="eyebrow">BATTLE ARENA • ${q[0]} / ${q[1]}</div><h1>Rapid Challenge ⚔️</h1><p>Benar = +100 XP. Salah = pembahasan langsung.</p></div>
+<div class="card"><p class="q">${q[2]}</p>${q[3].map((o,i)=>`<button class="option" onclick="ans(${i})">${String.fromCharCode(65+i)}. ${o}</button>`).join("")}<div id="fb"></div></div>`}
+function ans(i){const q=questions[state.qi%questions.length];state.solved++;const good=i===q[4];if(good){state.correct++;state.xp+=100;state.gold+=25;toast("Benar! +100 XP")}else toast("Belum tepat — pelajari pembahasannya");
+if(state.xp>=state.level*500)state.level++;save();document.getElementById("fb").innerHTML=`<div class="card ${good?"":"ai"}" style="margin-top:15px"><b>${good?"🎉 Benar!":"💡 Mari pahami"}</b><p>${q[5]}</p><button class="btn primary" onclick="state.qi++;save();render();nav('battle')">Soal berikutnya</button></div>`}
+function olymp(){return `<div class="hero"><div class="eyebrow">OLYMPIAD MODE</div><h1>Olympiad Gate 🏆</h1><p>Mode kompetitif. Free release menyediakan Starter; bank soal dapat diperluas oleh Contributor.</p></div>
+<div class="grid"><div class="card"><h3>Starter</h3><p>10 soal • 10 menit</p><button class="btn primary" onclick="nav('battle')">Mulai</button></div>
+<div class="card"><h3>Advanced</h3><p>20 soal • 20 menit</p><button class="btn" onclick="toast('Akan aktif setelah bank soal diperluas')">Locked</button></div>
+<div class="card"><h3>Legend</h3><p>30 soal • 30 menit</p><button class="btn" onclick="toast('Akan aktif setelah bank soal diperluas')">Locked</button></div></div>`}
+function ach(){const a=[["🌟","First Quest",state.done.length>0],["🎯","Problem Solver",state.solved>=5],["🏆","Olympiad Ready",state.xp>=1500]];return `<div class="hero"><div class="eyebrow">ACHIEVEMENTS</div><h1>Medals & Milestones</h1></div><div class="grid">${a.map(x=>`<div class="card"><div style="font-size:34px">${x[0]}</div><h3>${x[1]}</h3><span class="badge">${x[2]?"UNLOCKED":"LOCKED"}</span></div>`).join("")}</div>`}
+function lead(){return `<div class="hero"><div class="eyebrow">LEADERBOARD</div><h1>Olympiad Rankings</h1><p>Demo lokal. Database online dapat disambungkan pada tahap berikutnya.</p></div><div class="card"><table class="table"><tr><th>#</th><th>Player</th><th>Level</th><th>XP</th></tr>${[["Aurelia",12,8450],["Raka",10,6920],["Mika",9,5740],[state.name,state.level,state.xp]].map((x,i)=>`<tr><td>${i+1}</td><td>${x[0]}</td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("")}</table></div>`}
+function content(){return `<div class="hero"><div class="eyebrow">CONTENT STUDIO</div><h1>Question Factory</h1><p>Contributor membuat draft; Admin meninjau sebelum publikasi.</p></div>
+<div class="grid"><div class="card"><h3>Tambah Soal</h3><div class="field"><label>Subject</label><select id="cs"><option>Matematika</option><option>IPA</option><option>Bahasa Indonesia</option><option>Bahasa Inggris</option></select></div>
+<div class="field"><label>Pertanyaan</label><textarea id="cq" rows="4"></textarea></div><div class="field"><label>Jawaban benar</label><input id="ca"></div><button class="btn primary" onclick="addq()">Simpan Draft</button></div>
+<div class="card"><h3>Workflow</h3><p>Draft → Review → Approved → Published → Analytics.</p></div><div class="card"><h3>Bank Demo</h3><div class="stat">${questions.length}</div><p class="muted">soal aktif</p></div></div>`}
+function addq(){const q=document.getElementById("cq").value.trim(),a=document.getElementById("ca").value.trim();if(!q||!a)return toast("Isi pertanyaan dan jawaban");questions.push([document.getElementById("cs").value,"Draft",q,[a,"Pilihan B","Pilihan C","Pilihan D"],0,"Pembahasan draft belum dibuat."]);toast("Draft tersimpan untuk demo");render();nav("content")}
+function analytics(){return `<div class="hero"><div class="eyebrow">ANALYTICS</div><h1>Learning Analytics</h1></div><div class="grid4"><div class="card"><div class="muted">Solved</div><div class="stat">${state.solved}</div></div><div class="card"><div class="muted">Correct</div><div class="stat green">${state.correct}</div></div><div class="card"><div class="muted">XP</div><div class="stat gold">${state.xp}</div></div><div class="card"><div class="muted">Bank</div><div class="stat">${questions.length}</div></div></div>`}
+function system(){return `<div class="hero"><div class="eyebrow">SYSTEM</div><h1>Release Control</h1><p>Static free release. Tidak membutuhkan server untuk demo dasar.</p><button class="btn danger" onclick="localStorage.removeItem('ieob_state');location.reload()">Reset Demo</button></div>
+<div class="card"><h3>Production checklist</h3><p>✓ Student · ✓ Contributor/Admin · ✓ Learning · ✓ Quest · ✓ Battle · ✓ Local progress · ✓ Responsive · ✓ Vercel/GitHub compatible</p>
+<p class="muted">Login online, database multi-user, dan AI sungguhan membutuhkan backend/API. Jangan menaruh API key rahasia di index.html.</p></div>`}
+function cq(i){if(state.done.includes(i))return;state.done.push(i);state.xp+=[100,150,250,300,500][i];state.gold+=50;if(state.xp>=state.level*500)state.level++;save();toast("Quest selesai! Reward diterima");render();nav("quest")}
+function ai(){toast("AI Mentor demo: AI API sungguhan disambungkan melalui backend.")}
+function nav(id){document.querySelectorAll("[data-p]").forEach(x=>x.classList.toggle("hidden",x.dataset.p!==id));document.querySelectorAll("aside button").forEach(x=>x.classList.toggle("on",x.dataset.go===id))}
+function logout(){state.role=null;save();login()}
+function render(){if(state.role){renderShell()}else{login()}}
+function renderShell(){shell()}
+render();
+</script></body></html>
